@@ -42,7 +42,7 @@ DriveStats::DriveStats(QWidget* parent) : QFrame(parent) {
     grid_layout->addWidget(labels.distance_unit = newLabel(getDistanceUnit(), "unit"), row + 2, 2, Qt::AlignCenter);
     grid_layout->addWidget(new QLabel("────────────────────────────────"), 8, 0, 1, 3, Qt::AlignCenter);
 
-    grid_layout->addWidget(new QLabel("━ neokii branch ━"), 9, 0, 1, 3, Qt::AlignCenter);
+    grid_layout->addWidget(new QLabel("━ neokii+crwusiz+opkr branch ━"), 9, 0, 1, 3, Qt::AlignCenter);
     grid_layout->addWidget(new QLabel("「 Dynamic Luxury Driving \U0001f601」"), 11, 0, 1, 3, Qt::AlignCenter);
     main_layout->addLayout(grid_layout);
   };

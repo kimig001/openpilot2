@@ -102,10 +102,10 @@ public:
   explicit CommunityPanel(QWidget *parent = nullptr);
 };
 
-class SpecialPanel : public QWidget {
+class VIPPanel : public QWidget {
   Q_OBJECT
 public:
-  explicit SpecialPanel(QWidget *parent = nullptr);
+  explicit VIPPanel(QWidget *parent = nullptr);
 };
 
 
