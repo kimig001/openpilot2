@@ -62,6 +62,7 @@ def read_tz(x):
   except FileNotFoundError:
     return 0
 
+prebuiltfile = '/data/openpilot/prebuilt'
 
 def read_thermal(thermal_config):
   dat = messaging.new_message('deviceState')
@@ -424,7 +425,13 @@ def thermald_thread():
 
       started_ts = None
       if off_ts is None:
-        off_ts = sec_since_boot()   
+        off_ts = sec_since_boot()  
+        
+    prebuiltlet = params.get_bool("PutPrebuilt")
+    if not os.path.isfile(prebuiltfile) and prebuiltlet:
+      os.system("cd /data/openpilot; touch prebuilt")
+    elif os.path.isfile(prebuiltfile) and not prebuiltlet:
+      os.system("cd /data/openpilot; rm -f prebuilt")    
     
     # Offroad power monitoring
     power_monitor.calculate(peripheralState, startup_conditions["ignition"])
