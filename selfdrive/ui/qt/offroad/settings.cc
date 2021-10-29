@@ -349,6 +349,10 @@ QWidget * network_panel(QWidget * parent) {
 //VIP menu
 VIPPanel::VIPPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
+  
+  layout->addWidget(new PrebuiltToggle());
+  layout->addWidget(horizontal_line());
+  
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
