@@ -325,7 +325,7 @@ QWidget * network_panel(QWidget * parent) {
   // SSH key management
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
-  layout->addWidget(horizontal_line());
+  list->addItem(horizontal_line());
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
   auto gitpullbtn = new ButtonControl("GitPull", "실행");
@@ -336,7 +336,7 @@ QWidget * network_panel(QWidget * parent) {
     }
   });
   list->addItem(gitpullbtn);
-  layout->addWidget(horizontal_line());
+  list->addItem(horizontal_line());
 
   layout->addWidget(list);
   layout->addStretch(1);
