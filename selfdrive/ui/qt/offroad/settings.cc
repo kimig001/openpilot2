@@ -261,7 +261,7 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
 
   auto uninstallBtn = new ButtonControl("오픈파일럿 삭제 " + getBrand(), "삭제");
   connect(uninstallBtn, &ButtonControl::clicked, [=]() {
-    if (ConfirmationDialog::confirm("오픈파일럿을 삭하시겠습니까?", this)) {
+    if (ConfirmationDialog::confirm("오픈파일럿을 삭제하시겠습니까?", this)) {
       Params().putBool("DoUninstall", true);
     }
   });
@@ -349,9 +349,6 @@ QWidget * network_panel(QWidget * parent) {
 //VIP menu
 VIPPanel::VIPPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
-  
-  layout->addWidget(new PrebuiltToggle());
-  layout->addWidget(horizontal_line());
   
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
@@ -582,6 +579,11 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   )");
 
   QList<ParamControl*> toggles;
+  
+  toggles.append(new ParamControl("PutPrebuilt", "Prebuilt ",
+                                  "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
+                                  "../assets/offroad/icon_openpilot.png",
+                                  this));
 
   toggles.append(new ParamControl("UseClusterSpeed",
                                             "Use Cluster Speed",
