@@ -580,25 +580,26 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
 
   QList<ParamControl*> toggles;
   
-  toggles.append(new ParamControl("PutPrebuilt", "Prebuilt ",
-                                  "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
-                                  "../assets/offroad/icon_openpilot.png",
-                                  this));
+  toggles.append(new ParamControl("PutPrebuilt", 
+                                           "Prebuilt 실행 ",
+                                           "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
+                                            "../assets/offroad/icon_openpilot.png",
+                                            this));
 
   toggles.append(new ParamControl("UseClusterSpeed",
-                                            "Use Cluster Speed",
+                                            "계기판 속도 사용",
                                             "Use cluster speed instead of wheel speed.",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("LongControlEnabled",
-                                            "Enable HKG Long Control",
+                                            "HKG 롱컨트롤 사용",
                                             "warnings: it is beta, be careful!! Openpilot will control the speed of your car",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("MadModeEnabled",
-                                            "Enable HKG MAD mode",
+                                            "HKG MAD 모드 ",
                                             "Openpilot will engage when turn cruise control on",
                                             "../assets/offroad/icon_openpilot.png",
                                             this));
