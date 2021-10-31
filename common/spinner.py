@@ -63,10 +63,10 @@ if __name__ == "__main__":
       s.update("GENESI")
       time.sleep(0.3)
       s.update("GENESIS")
-      time.sleep(1.5)
+      time.sleep(1.0)
       s.update("OPENPILOT")
       time.sleep(1.0)
-      s.update("Now Booting...")
+      s.update("Prebuilt Booting...")
       time.sleep(3.0)
   else:
     with Spinner() as s:
