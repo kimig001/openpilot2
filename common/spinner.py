@@ -64,12 +64,8 @@ if __name__ == "__main__":
       time.sleep(0.3)
       s.update("GENESIS")
       time.sleep(1.5)
-      s.update("Dynamic")
+      s.update("OPENPILOT")
       time.sleep(1.0)
-      s.update("Luxury")
-      time.sleep(1.0)
-      s.update("Driving")
-      time.sleep(1.5)
       s.update("Now Booting...")
       time.sleep(3.0)
   else:
