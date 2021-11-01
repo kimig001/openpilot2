@@ -8,7 +8,7 @@ from cereal import log
 
 class LatControlPID(LatControl):
   def __init__(self, CP, CI):
-    super().__init__(CP)
+    super().__init__(CP, CI)
     self.pid = PIDController ((CP.lateralTuning.pid.kpBP, CP.lateralTuning.pid.kpV),
                               (CP.lateralTuning.pid.kiBP, CP.lateralTuning.pid.kiV),
                               (CP.lateralTuning.pid.kdBP, CP.lateralTuning.pid.kdV),
