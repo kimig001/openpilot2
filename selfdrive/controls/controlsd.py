@@ -32,8 +32,6 @@ from selfdrive.ntune import ntune_common_get, ntune_common_enabled, ntune_scc_ge
 
 LDW_MIN_SPEED = 31 * CV.MPH_TO_MS
 LANE_DEPARTURE_THRESHOLD = 0.1
-STEER_ANGLE_SATURATION_TIMEOUT = 1.0 / DT_CTRL
-STEER_ANGLE_SATURATION_THRESHOLD = 2.5  # Degrees
 
 SIMULATION = "SIMULATION" in os.environ
 NOSENSOR = "NOSENSOR" in os.environ
@@ -153,7 +151,6 @@ class Controls:
     self.mismatch_counter = 0
     self.can_error_counter = 0
     self.last_blinker_frame = 0
-    self.saturated_count = 0
     self.distance_traveled = 0
     self.last_functional_fan_frame = 0
     self.events_prev = []
@@ -550,19 +547,8 @@ class Controls:
         lac_log.output = steer
         lac_log.saturated = abs(steer) >= 0.9
 
-    # Check for difference between desired angle and angle for angle based control
-    angle_control_saturated = self.CP.steerControlType == car.CarParams.SteerControlType.angle and \
-      abs(actuators.steeringAngleDeg - CS.steeringAngleDeg) > STEER_ANGLE_SATURATION_THRESHOLD
-
-    if angle_control_saturated and not CS.steeringPressed and self.active:
-      self.saturated_count += 1
-    else:
-      self.saturated_count = 0
-
     # Send a "steering required alert" if saturation count has reached the limit
-    if (lac_log.saturated and not CS.steeringPressed) or \
-       (self.saturated_count > STEER_ANGLE_SATURATION_TIMEOUT):
-
+    if (lac_log.saturated and not CS.steeringPressed):
       if len(lat_plan.dPathPoints):
         # Check if we deviated from the path
         left_deviation = actuators.steer > 0 and lat_plan.dPathPoints[0] < -0.1
