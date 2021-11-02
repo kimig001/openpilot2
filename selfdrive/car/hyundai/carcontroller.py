@@ -196,6 +196,10 @@ class CarController():
 
       if frame % 2 == 0:
         
+        apply_accel, lead_drel = self.scc_smoother.get_fused_accel(apply_accel, aReqValue, controls.sm)
+        controls.fused_accel = apply_accel
+        controls.lead_drel = lead_drel
+        
         stopping = controls.LoC.long_control_state == LongCtrlState.stopping
         apply_accel = self.scc_smoother.get_apply_accel(CS, controls.sm, actuators.accel, stopping)
         apply_accel = clip(apply_accel, CarControllerParams.ACCEL_MIN, CarControllerParams.ACCEL_MAX)

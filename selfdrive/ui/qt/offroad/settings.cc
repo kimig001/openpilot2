@@ -652,6 +652,12 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "../assets/offroad/icon_shell.png",
                                             this));
   
+  toggles.append(new ParamControl("FuseWithStockScc",
+                                            "Use by fusion with stock scc",
+                                            "",
+                                            "../assets/offroad/icon_road.png",
+                                            this));
+  
   toggles.append(new ParamControl("CustomLeadMark",
                                             "Use custom lead mark",
                                             "",

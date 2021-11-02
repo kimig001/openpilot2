@@ -60,6 +60,7 @@ def manager_init():
     ("NewRadarInterface", "0"),
     ("PutPrebuilt", "0"),
     ("NDACamera", "1"),
+    ("FuseWithStockScc", "1"),
     ("ShowCgearUI", "1"),
   ]
   if not PC:

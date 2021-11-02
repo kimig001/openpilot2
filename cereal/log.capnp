@@ -590,7 +590,8 @@ struct ControlsState @0x97ff69c53601abf1 {
 
   sccStockCamAct @73 :Float32;
   sccStockCamStatus @74 :Float32;
-
+  fusedAccel @76 :Float32;
+  leadDist @77 :Float32;
   # add
   lateralControlSelect  @75 :UInt8;
   
