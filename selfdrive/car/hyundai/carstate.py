@@ -34,6 +34,7 @@ class CarState(CarStateBase):
     self.cruise_main_button = 0
     self.mdps_error_cnt = 0
     self.cruise_unavail_cnt = 0
+    self.obj_valid = 0 #장푸님 오토 크루즈 셋
     
     self.apply_steer = 0.
 
@@ -45,11 +46,8 @@ class CarState(CarStateBase):
     self.standstill = False
     self.cruiseState_enabled = False
     self.cruiseState_speed = 0
+    self.prev_cruiseState_speed = 0 #장푸님 오토 크루즈 셋
 
-    #장푸님 오토크루즈 셋
-    self.prev_cruiseState_speed = 0
-    self.obj_valid = 0
-    #
     self.use_cluster_speed = Params().get_bool('UseClusterSpeed')
     self.long_control_enabled = Params().get_bool('LongControlEnabled')
 
