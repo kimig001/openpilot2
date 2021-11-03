@@ -554,7 +554,7 @@ class Controls:
         lac_log.saturated = abs(steer) >= 0.9
 
     # Send a "steering required alert" if saturation count has reached the limit
-    if (lac_log.saturated and not CS.steeringPressed):
+    if lac_log.active and lac_log.saturated and not CS.steeringPressed:
       if len(lat_plan.dPathPoints):
         # Check if we deviated from the path
         left_deviation = actuators.steer > 0 and lat_plan.dPathPoints[0] < -0.1
