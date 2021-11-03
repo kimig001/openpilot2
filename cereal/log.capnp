@@ -594,6 +594,10 @@ struct ControlsState @0x97ff69c53601abf1 {
   # add
   lateralControlSelect  @75 :UInt8;
   
+  # stock scc fusion - 크루즈 오토셋
+  fusedAccel @76 :Float32;
+  leadDist @77 :Float32;
+  
   enum OpenpilotState @0xdbe58b96d2d1ac61 {
     disabled @0;
     preEnabled @1;

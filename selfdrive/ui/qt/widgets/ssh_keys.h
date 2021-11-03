@@ -84,6 +84,36 @@ private:
   QLabel remote_hash;
   Params params;
 };
+//opkr
+class AutoScreenOff : public AbstractControl {
+  Q_OBJECT
+
+public:
+  AutoScreenOff();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+
+  void refresh();
+};
+
+class BrightnessControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  BrightnessControl();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+
+  void refresh();
+};
 
 // openpilot Preview
 class OpenpilotView : public AbstractControl {

@@ -185,10 +185,13 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"DisableOpFcw", PERSISTENT},
     {"ShowDebugUI", PERSISTENT},
     {"CustomLeadMark", PERSISTENT},
+    {"AutoSet", PERSISTENT}, // 장푸 오토 크루즈셋 
+    {"FuseWithStockScc", PERSISTENT}, // 장푸 오토 크루즈셋
     {"NDACamera", PERSISTENT},
     {"ShowCgearUI", PERSISTENT},
     {"KRDateShow", PERSISTENT},
     {"KRTimeShow", PERSISTENT},
+    {"AutoScreenOff", PERSISTENT},
     {"PutPrebuilt", PERSISTENT},
     {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
     {"IsOpenpilotViewEnabled", CLEAR_ON_MANAGER_START},

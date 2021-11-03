@@ -160,6 +160,7 @@ typedef struct UIScene {
   bool brakePress;
   bool brakeLights;
 //깜박이 추가 종료 
+  
 //bsd
   bool leftblindspot;
   bool rightblindspot;
@@ -184,7 +185,6 @@ typedef struct UIScene {
   int laneless_mode;
 
   cereal::CarState::Reader car_state;
-  cereal::ControlsState::Reader controls_state;
   cereal::LateralPlan::Reader lateral_plan;
 
   // modelV2
@@ -223,7 +223,19 @@ typedef struct UIScene {
   //gps
   int satelliteCount;
   float gpsAccuracy;
-
+  // opkr
+  bool touched2 = false;
+  float brightness_off;
+  int setbtn_count = 0;
+  int homebtn_count = 0;
+  cereal::ControlsState::Reader controls_state;
+  struct _screen
+  {
+     int  nTime;
+     int  autoScreenOff;
+     int  brightness;
+     int  awake;
+  } scr;
 } UIScene;
 
 typedef struct UIState {
@@ -249,7 +261,8 @@ typedef struct UIState {
   bool show_cgear_ui;
   TouchState touch;
   int lock_on_anim_index;
-
+  //opkr
+  bool sidebar_view;
 } UIState;
 
 
@@ -295,7 +308,8 @@ private:
   FirstOrderFilter brightness_filter;
 
   QTimer *timer;
-
+  int sleep_time = -1; // opkr
+  
   void updateBrightness(const UIState &s);
   void updateWakefulness(const UIState &s);
 

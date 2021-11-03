@@ -2,9 +2,15 @@
 
 #include <QMouseEvent>
 
+#include "selfdrive/ui/qt/qt_window.h" // opkr
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/util.h"
+#include "selfdrive/ui/qt/widgets/input.h" // opkr
+#include "selfdrive/common/params.h" // opkr
+
+#include <QProcess> // opkr
+#include <QSoundEffect> // opkr
 
 void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, QColor c, int y) {
   const QRect rect = {30, y, 240, val.isEmpty() ? (label.contains("\n") ? 124 : 100) : 148};
@@ -44,6 +50,17 @@ Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
   setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   setFixedWidth(300);
 }
+//opkr
+void Sidebar::mousePressEvent(QMouseEvent *event) {
+  if (settings_btn.contains(event->pos())) {
+    QUIState::ui_state.scene.setbtn_count = QUIState::ui_state.scene.setbtn_count + 1;
+    if (QUIState::ui_state.scene.setbtn_count > 1) {
+      QUIState::ui_state.scene.setbtn_count = 0;
+      emit openSettings();
+    }
+    return;
+  }
+} // opkr
 
 void Sidebar::mouseReleaseEvent(QMouseEvent *event) {
   if (settings_btn.contains(event->pos())) {
@@ -120,7 +137,7 @@ void Sidebar::paintEvent(QPaintEvent *event) {
     p.drawText(r, Qt::AlignCenter, net_type);
 
   // metrics
-  drawMetric(p, "이온온도", temp_status.first, temp_status.second, 338);
+  drawMetric(p, "시스템온도", temp_status.first, temp_status.second, 338);
   drawMetric(p, panda_status.first, "", panda_status.second, 518);
   drawMetric(p, connect_status.first, "", connect_status.second, 676);
 }

@@ -352,6 +352,8 @@ VIPPanel::VIPPanel(QWidget* parent) : QWidget(parent) {
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
+  layout->addWidget(new BrightnessControl());
+  layout->addWidget(new AutoScreenOff());
   layout->addWidget(new ParamControl("ShowCgearUI",
                                             "주행기어단수 보기",
                                             "기어레버 위치와 기어단수를 볼수 있습니다..",
@@ -372,6 +374,12 @@ VIPPanel::VIPPanel(QWidget* parent) : QWidget(parent) {
                                             "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
                                             "../assets/offroad/icon_shell.png"
                                             ));
+  
+  layout->addWidget(new ParamControl("AutoSet",
+                                            "Cruise auto set",
+                                            "오토크루즈 셋 적용",
+                                            "../assets/offroad/icon_road.png",
+                                            this));
   layout->addWidget(horizontal_line());
 }
 
@@ -580,9 +588,9 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   QList<ParamControl*> toggles;
   
   toggles.append(new ParamControl("PutPrebuilt", 
-                                           "Prebuilt 실행 ",
+                                           "Smart Prebuilt 실행 ",
                                            "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
-                                            "../assets/offroad/icon_openpilot.png",
+                                            "../assets/offroad/icon_shell.png",
                                             this));
 
   toggles.append(new ParamControl("UseClusterSpeed",
