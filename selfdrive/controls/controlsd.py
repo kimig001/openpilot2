@@ -51,6 +51,8 @@ EventName = car.CarEvent.EventName
 ButtonEvent = car.CarState.ButtonEvent
 SafetyModel = car.CarParams.SafetyModel
 
+IGNORED_SAFETY_MODES = [SafetyModel.silent, SafetyModel.noOutput]
+
 
 class Controls:
   def __init__(self, sm=None, pm=None, can_sock=None):
@@ -270,13 +272,16 @@ class Controls:
       self.events.add(EventName.canError)
 
     for i, pandaState in enumerate(self.sm['pandaStates']):
-      # All pandas must match the list of safetyConfigs, and if outside this list, must be silent
+      # All pandas must match the list of safetyConfigs, and if outside this list, must be silent or noOutput
       if i < len(self.CP.safetyConfigs):
         safety_mismatch = pandaState.safetyModel != self.CP.safetyConfigs[i].safetyModel or pandaState.safetyParam != self.CP.safetyConfigs[i].safetyParam
       else:
-        safety_mismatch = pandaState.safetyModel != SafetyModel.silent
+        safety_mismatch = pandaState.safetyModel not in IGNORED_SAFETY_MODES
       if safety_mismatch or self.mismatch_counter >= 200:
         self.events.add(EventName.controlsMismatch)
+
+      if log.PandaState.FaultType.relayMalfunction in pandaState.faults:
+        self.events.add(EventName.relayMalfunction)
 
     if not self.sm['liveParameters'].valid:
       self.events.add(EventName.vehicleModelInvalid)
@@ -393,9 +398,9 @@ class Controls:
       self.mismatch_counter = 0
 
     # All pandas not in silent mode must have controlsAllowed when openpilot is enabled
-    for pandaState in self.sm['pandaStates']:
-      if not pandaState.controlsAllowed and self.enabled:
-        self.mismatch_counter += 1
+    if any(not ps.controlsAllowed and self.enabled for ps in self.sm['pandaStates']
+           if ps.safetyModel not in IGNORED_SAFETY_MODES):
+      self.mismatch_counter += 1
 
     self.distance_traveled += CS.vEgo * DT_CTRL
 
@@ -494,7 +499,7 @@ class Controls:
       sr = max(params.steerRatio, 0.1)
     else:
       sr = max(ntune_common_get('steerRatio'), 0.1)
-    #sr = interp(self.steeringAngleDeg, [5., 20.], [14.5, 17.2])
+
     self.VM.update_params(x, sr)
 
     lat_plan = self.sm['lateralPlan']
@@ -527,11 +532,12 @@ class Controls:
       actuators.accel = self.LoC.update(self.active and CS.cruiseState.enabledAcc, CS, self.CP, long_plan, pid_accel_limits, self.sm['radarState'])
 
       # Steering PID loop and lateral MPC
+      lat_active = self.active and not CS.steerWarning and not CS.steerError and CS.vEgo > self.CP.minSteerSpeed
       desired_curvature, desired_curvature_rate = get_lag_adjusted_curvature(self.CP, CS.vEgo,
                                                                              lat_plan.psis,
                                                                              lat_plan.curvatures,
                                                                              lat_plan.curvatureRates)
-      actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(self.active, CS, self.CP, self.VM, params,
+      actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(lat_active, CS, self.CP, self.VM, params,
                                                                              desired_curvature, desired_curvature_rate, roll)
     else:
       lac_log = log.ControlsState.LateralDebugState.new_message()
