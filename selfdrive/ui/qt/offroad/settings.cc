@@ -375,11 +375,6 @@ VIPPanel::VIPPanel(QWidget* parent) : QWidget(parent) {
                                             "../assets/offroad/icon_shell.png"
                                             ));
   
-  layout->addWidget(new ParamControl("AutoSet",
-                                            "Cruise auto set",
-                                            "오토크루즈 셋 적용",
-                                            "../assets/offroad/icon_road.png",
-                                            this));
   layout->addWidget(horizontal_line());
 }
 
