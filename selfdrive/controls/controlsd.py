@@ -686,8 +686,6 @@ class Controls:
     controlsState.lateralControlSelect = int(self.lateral_control_select)
     controlsState.angleSteers = steer_angle_without_offset * CV.RAD_TO_DEG
     controlsState.applyAccel = self.apply_accel
-    controlsState.fusedAccel = self.fused_accel # JangPoo 
-    controlsState.leadDist = self.lead_drel # JangPoo
     controlsState.aReqValue = self.aReqValue
     controlsState.aReqValueMin = self.aReqValueMin
     controlsState.aReqValueMax = self.aReqValueMax
