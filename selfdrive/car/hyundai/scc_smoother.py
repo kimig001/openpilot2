@@ -201,7 +201,7 @@ class SccSmoother:
     CC.sccSmoother.autoTrGap = AUTO_TR_CRUISE_GAP
     ascc_enabled = CS.acc_mode and enabled and CS.cruiseState_enabled and 1 < CS.cruiseState_speed < 255 and not CS.brake_pressed
     #장푸
-    ascc_auto_set = enabled and (clu11_speed > 40 or CS.obj_valid) and CS.gas_pressed and CS.prev_cruiseState_speed and not CS.cruiseState_speed #
+    ascc_auto_set = enabled and (clu11_speed > 32 or CS.obj_valid) and CS.gas_pressed and CS.prev_cruiseState_speed and not CS.cruiseState_speed #
 
     if not self.longcontrol:
       if (not ascc_enabled or CS.standstill or CS.cruise_buttons != Buttons.NONE) and not ascc_auto_set: # 장푸
